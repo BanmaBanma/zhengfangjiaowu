@@ -10,7 +10,9 @@ import urllib
 from bs4 import BeautifulSoup
 import math
 
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 def request():
