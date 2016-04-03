@@ -178,8 +178,8 @@ def start(event):
             Tkinter.Label(frame,text=qmcjlist[index]).grid(row=index/3+1,column=11)
             
         index=index+1
-    Tkinter.Label(frame,text=u'加权平均分：').grid(row=int(math.ceil(n/3))+2,column=0)
-    Tkinter.Label(frame,text=jisuanpjf()).grid(row=int(math.ceil(n/3))+2,column=1)
+    Tkinter.Label(frame,text=u'加权平均分：').grid(row=int(math.ceil(n/3))+3,column=0)
+    Tkinter.Label(frame,text=jisuanpjf()).grid(row=int(math.ceil(n/3))+3,column=1)
     
 
 
