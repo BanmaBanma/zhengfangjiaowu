@@ -9,6 +9,7 @@ import Image
 import urllib
 from bs4 import BeautifulSoup
 import math
+import xlsxwriter
 
 import sys
 reload(sys)
@@ -21,7 +22,7 @@ def request():
     global codefanhui
     codefanhui=s.get('http://202.119.206.61/CheckCode.aspx')
     codefile=open('checkcode.gif','wb')        
-    codefile.write(codefanhui.content[:-736])
+    codefile.write(codefanhui.content)
     codefile.close()
     global my_headers1
     my_headers1 = {
@@ -81,11 +82,11 @@ def prepare_score_information():
     global name
     name=getName(jiaowu_shouye.content)
     urldata = urllib.urlencode({
-		'xh':var_stuid.get(),
-		'gnmkdm': 'N121605',
+        'xh':var_stuid.get(),
+        'gnmkdm': 'N121605',
                 'xm':name
 
-		})
+        })
     global scoreurl
     scoreurl='http://202.119.206.61/xscj_gc.aspx?'+urldata
     
@@ -160,9 +161,22 @@ def start(event):
     
     n=len(kcmclist)
     index=1
+    workbook = xlsxwriter.Workbook('chengji.xlsx')
+    worksheet = workbook.add_worksheet()
+    worksheet.set_column('A:A', 40)
+    num=0
+    while num < n:
+    
+        worksheet.write(num,0,kcmclist[num])
+        worksheet.write(num,1,jdlist[num])
+        worksheet.write(num,2,xflist[num])
+        worksheet.write(num,3,qmcjlist[num])
+        num=num+1
+    
     while index<n:
         if index%3==1:
             Tkinter.Label(frame,text=kcmclist[index]).grid(row=index/3+2,column=0)
+
             Tkinter.Label(frame,text=jdlist[index]).grid(row=index/3+2,column=1)
             Tkinter.Label(frame,text=xflist[index]).grid(row=index/3+2,column=2)
             Tkinter.Label(frame,text=qmcjlist[index]).grid(row=index/3+2,column=3)
@@ -252,5 +266,4 @@ frame.grid(row=4,column=0,columnspan=3,sticky='w')
 
 
 Tkinter.mainloop()
-
 
